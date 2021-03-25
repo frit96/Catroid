@@ -1903,8 +1903,10 @@ needs read and write access to it. You can always change permissions through you
     <string name="formula_editor_object_angular_velocity" tools:ignore="UnusedResources">angular velocity</string>
     <string name="formula_editor_object_look_number" tools:ignore="UnusedResources">look number</string>
     <string name="formula_editor_object_look_name" tools:ignore="UnusedResources">look name</string>
+    <string name="formula_editor_object_number_of_looks" tools:ignore="UnusedResources">number of looks</string>
     <string name="formula_editor_object_background_number" tools:ignore="UnusedResources">background number</string>
     <string name="formula_editor_object_background_name" tools:ignore="UnusedResources">background name</string>
+    <string name="formula_editor_object_number_of_backgrounds" tools:ignore="UnusedResources">number of backgrounds</string>
     <string name="formula_editor_object_distance_to" tools:ignore="UnusedResources">distance to touch position</string>
     <string name="formula_editor_compute">Compute</string>
     <string name="formula_editor_object">Properties</string>

@@ -23,6 +23,7 @@
 package org.catrobat.catroid.formulaeditor;
 
 import org.catrobat.catroid.R;
+import org.catrobat.catroid.devices.mindstorms.ev3.sensors.EV3Sensor;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -405,10 +406,14 @@ public class InternFormulaKeyboardAdapter {
 				return buildObject(Sensors.OBJECT_LOOK_NUMBER);
 			case R.string.formula_editor_object_look_name:
 				return buildObject(Sensors.OBJECT_LOOK_NAME);
+			case R.string.formula_editor_object_number_of_looks:
+				return buildObject(Sensors.OBJECT_NUMBER_OF_LOOKS);
 			case R.string.formula_editor_object_background_number:
 				return buildObject(Sensors.OBJECT_BACKGROUND_NUMBER);
 			case R.string.formula_editor_object_background_name:
 				return buildObject(Sensors.OBJECT_BACKGROUND_NAME);
+			case R.string.formula_editor_object_number_of_backgrounds:
+				return buildObject(Sensors.OBJECT_NUMBER_OF_BACKGROUNDS);
 			case R.string.formula_editor_object_distance_to:
 				return buildObject(Sensors.OBJECT_DISTANCE_TO);
 			case R.string.formula_editor_function_collides_with_edge:

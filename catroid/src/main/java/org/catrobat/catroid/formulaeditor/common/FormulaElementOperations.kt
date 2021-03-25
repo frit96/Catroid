@@ -32,6 +32,7 @@ import org.catrobat.catroid.content.Project
 import org.catrobat.catroid.content.Scene
 import org.catrobat.catroid.content.Scope
 import org.catrobat.catroid.content.Sprite
+import org.catrobat.catroid.devices.mindstorms.ev3.sensors.EV3Sensor
 import org.catrobat.catroid.formulaeditor.FormulaElement
 import org.catrobat.catroid.formulaeditor.SensorHandler
 import org.catrobat.catroid.formulaeditor.Sensors
@@ -110,6 +111,9 @@ object FormulaElementOperations {
     fun getLookName(lookData: LookData?) = lookData?.name ?: ""
 
     @JvmStatic
+    fun getNumberOfLooks(lookDataList: List<LookData>) = lookDataList.count()
+
+    @JvmStatic
     fun tryCalculateCollidesWithEdge(
         look: Look,
         stageListener: StageListener?,
@@ -158,6 +162,8 @@ object FormulaElementOperations {
             Sensors.OBJECT_DISTANCE_TO -> look.distanceToTouchPositionInUserInterfaceDimensions.toDouble()
             Sensors.OBJECT_LOOK_NUMBER,
             Sensors.OBJECT_BACKGROUND_NUMBER -> tryGetLookNumber(lookData, lookDataList)
+            Sensors.OBJECT_NUMBER_OF_LOOKS,
+            Sensors.OBJECT_NUMBER_OF_BACKGROUNDS -> getNumberOfLooks(lookDataList).toDouble()
             Sensors.OBJECT_LOOK_NAME,
             Sensors.OBJECT_BACKGROUND_NAME -> getLookName(lookData)
             Sensors.NFC_TAG_MESSAGE -> NfcHandler.getLastNfcTagMessage()
