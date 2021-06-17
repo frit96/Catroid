@@ -46,7 +46,7 @@ import org.catrobat.catroid.common.ScreenModes;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.io.StorageOperations;
 import org.catrobat.catroid.io.XstreamSerializer;
-import org.catrobat.catroid.io.asynctask.ProjectExportTask;
+import org.catrobat.catroid.io.asynctask.ProjectExporter;
 import org.catrobat.catroid.io.asynctask.ProjectLoadTask;
 import org.catrobat.catroid.io.asynctask.ProjectSaver;
 import org.catrobat.catroid.merge.NewProjectNameTextWatcher;
@@ -302,9 +302,7 @@ public class ProjectOptionsFragment extends Fragment {
 				}
 				NotificationData notificationData = new StatusBarNotificationManager(context)
 						.createSaveProjectToExternalMemoryNotification(context, project.getName());
-
-				new ProjectExportTask(project.getDirectory(), notificationData, context)
-						.execute();
+				new ProjectExporter(project.getDirectory(), notificationData, context).exportProjectToExternalStorageAsync();
 			}
 		}.execute(getActivity());
 	}
