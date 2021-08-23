@@ -24,6 +24,7 @@
 package org.catrobat.catroid.test.content.script;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.content.Look;
@@ -34,11 +35,13 @@ import org.catrobat.catroid.content.WhenScript;
 import org.catrobat.catroid.content.bricks.ChangeXByNBrick;
 import org.catrobat.catroid.content.bricks.WaitBrick;
 import org.catrobat.catroid.content.eventids.EventId;
+import org.catrobat.catroid.stage.CameraPositioner;
 import org.catrobat.catroid.test.utils.TestUtils;
 import org.catrobat.catroid.utils.TouchUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -52,6 +55,8 @@ public class WhenScriptTest {
 	private static final int HEIGHT = 100;
 	private Sprite sprite;
 	private Script whenScript;
+	private final OrthographicCamera camera = Mockito.spy(new OrthographicCamera());
+	private final CameraPositioner cameraPositioner = new CameraPositioner(camera, 960f, 540f);
 
 	@Before
 	public void setUp() {
@@ -59,6 +64,7 @@ public class WhenScriptTest {
 
 		whenScript = new WhenScript();
 		sprite.addScript(whenScript);
+		Mockito.doNothing().when(camera).update();
 
 		createProjectWithSprite(sprite);
 		TouchUtil.reset();
@@ -111,6 +117,27 @@ public class WhenScriptTest {
 		tapSprite();
 		tapSprite();
 
+		while (!sprite.look.haveAllThreadsFinished()) {
+			sprite.look.act(1.0f);
+		}
+
+		assertEquals((float) 10, sprite.look.getXInUserInterfaceDimensionUnit());
+	}
+
+	@Test
+	public void movedCenterOfCoordinateSystem() {
+		camera.position.set(0.0f, 0.0f, 0.0f);
+		sprite.look.setPositionInUserInterfaceDimensionUnit(0.0f, 0.0f);
+		cameraPositioner.setHorizontalFlex(0.0f);
+		cameraPositioner.setVerticalFlex(0.0f);
+		cameraPositioner.setSpriteToFocusOn(sprite);
+		sprite.look.setPositionInUserInterfaceDimensionUnit(1000f, 600f);
+		cameraPositioner.updateCameraPositionForFocusedSprite();
+
+		whenScript.addBrick(new ChangeXByNBrick(10));
+		sprite.initializeEventThreads(EventId.START);
+
+		tapSprite();
 		while (!sprite.look.haveAllThreadsFinished()) {
 			sprite.look.act(1.0f);
 		}
